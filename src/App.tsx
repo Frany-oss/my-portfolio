@@ -15,8 +15,8 @@ function App() {
       <main className="container mx-auto p-8">
         <About />
         <Experience />
-        {/* <Projects />
-        <Contact /> */}
+        <Projects />
+        {/* <Contact /> */}
         <Skills/>
       </main>
     </div>
