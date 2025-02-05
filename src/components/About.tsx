@@ -1,31 +1,65 @@
-import React from "react";
-import ProfileImage from "../assets/profile.png";
+import React, { useEffect, useState } from "react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-const About: React.FC = () => {
+const About = () => {
+  const [text, setText] = useState("");
+  const fullText = "Hi, I'm Francesco Bassino";
+  const [showCursor, setShowCursor] = useState(true);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setIsTypingComplete(true);
+        setShowCursor(false);
+      }
+    }, 100);
+
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
+
   return (
-    <section id="about" className="my-12">
-      <div className="bg-primary p-8 rounded-lg min-h-[650px] flex items-center justify-center">
-        <div className="relative w-[350px] h-[350px] flex items-center justify-center">
-          <div className="absolute inset-0 pr-8">
-            <svg width="100%" height="100%" viewBox="0 0 400 400">
-              <rect x="0" y="0" width="400" height="400" fill="#121F2F" />
-              <rect x="20" y="20" width="360" height="360" fill="#F7B176" />
-              <rect x="40" y="40" width="320" height="320" fill="#121F2F" />
-            </svg>
-          </div>
-          <img
-            src={ProfileImage}
-            alt="Francesco Bassino"
-            className="relative z-10 w-[350px] h-auto rounded-lg object-cover pr-8"
-          />
-        </div>
-        <div className="h-[500px] border-l-4 border-secondary-orange mx-8"></div>
-        <div className="w-1/2 pl-8">
-          <h2 className="text-9xl font-bold text-secondary-white mb-4">Hi, I'm Francesco</h2>
-          <p className="text-2xl text-secondary-dark-3">
-            Passionate FullStack Developer crafting scalable web solutions with over 3.5 years of
-            hands-on experience.
-          </p>
+    <section id="about" className="w-full py-20 flex flex-col items-center text-center">
+      <div className="max-w-3xl">
+        {/* Animated Header */}
+        <h2 className="text-8xl text-secondary-white mb-6 font-sans">
+          <span>{text}</span>
+          {!isTypingComplete && (
+            <span
+              className={`inline-block w-2 h-24 bg-secondary-white ml-2 ${
+                showCursor ? "opacity-100" : "opacity-0"
+              }`}
+            ></span>
+          )}
+        </h2>
+
+        {/* Description */}
+        <p className="text-1xl text-secondary-dark-3 font-sans w-3/5 mx-auto mb-6 py-4">
+          Passionate FullStack Developer crafting scalable web solutions with over 3.5 years of hands-on experience.
+        </p>
+
+        {/* Divider with Icons (Aligned & Spaced) */}
+        <div className="w-3/5 mx-auto flex items-center justify-center gap-8">
+          <hr className="flex-1 border-secondary-orange" />
+          <a href="https://github.com/Frany-oss" target="_blank" rel="noopener noreferrer">
+            <FaGithub className="text-4xl text-secondary-white hover:text-secondary-orange transition" />
+          </a>
+          <a href="https://www.linkedin.com/in/francesco-bassino/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin className="text-4xl text-secondary-white hover:text-secondary-orange transition" />
+          </a>
+          <hr className="flex-1 border-secondary-orange" />
         </div>
       </div>
     </section>

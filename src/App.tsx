@@ -5,17 +5,19 @@ import Header from "./components/Header";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Projects from "./components/Projects";
-import Work from "./components/Work";
+import Experience from "./components/Experience";
+import Skills from "./components/Skills";
 
 function App() {
   return (
-    <div className="bg-primary min-h-screen transition-colors duration-300">
+    <div className="bg-bg-primary min-h-screen transition-colors duration-300">
       <Header />
-      <main className="container mx-auto px-4 p-8">
+      <main className="container mx-auto p-8">
         <About />
-        <Work />
+        <Experience />
         {/* <Projects />
         <Contact /> */}
+        <Skills/>
       </main>
     </div>
   );
